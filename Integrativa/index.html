@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Seleção de Disciplinas</title>
+  <style type="text/css">
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .logoplat{
+      margin-right: 6%;
+      width: 15%;
+      filter: brightness(0) invert(1);
+    }
+    .recomendados{
+      background-color:#242222;
+      padding: 5%;
+    }
+    .recomendados h2{
+      text-align: center;
+      bottom: 10%;
+    }
+    /* Cabeçalho */
+    header {
+      background-color: #000;
+      padding: 20px;
+    }
+    #teste{
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logosi {
+      margin-left: 2%;
+      width: 100px;
+      filter: brightness(0) invert(1);
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    nav ul li {
+      margin-right: 10px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+    /* Seção de seleção de disciplinas */
+    .filme-selection {
+      background-color: #141414;
+      padding: 40px;
+      text-align:left;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .filme-grid {
+      margin-top: 5%;
+      transition: transform 0.3s ease-in-out;
+      display: flex;
+      justify-content: center;
+    }
+    .filme-grid-recom{
+      text-align: center;
+      margin-top: 5%;
+      margin-bottom: 5%;
+    }
+    .disciplina-imagem {
+      max-height: 150px; /* Defina a altura máxima desejada para as imagens */
+    }
+
+    .disciplina-imagem:hover{
+      height: 170px;
+    }
+
+    .filme-item {
+      display: inline-block;
+      margin-right: 20px;
+      cursor: pointer;
+    }
+    
+    .filme-item img:hover{
+      width: 230px;
+      height: auto;
+    }
+
+    .filme-item img {
+      width: 200px; /* Defina a largura desejada para as imagens aqui */
+      height: auto;
+      border-radius: 5px;
+    }
+
+    /* Estilização quando o item é selecionado */
+    .filme-item.selected {
+      width: 230x;
+      height: auto;
+    }
+    h2{
+      color: #fff;
+      text-align: center;
+    }
+    .descricaodisciplina{
+      margin-bottom: 0;
+    }
+    .descricaodisciplina h2{
+      background: linear-gradient(#645757, #3a3d57);
+      border-radius: 5%;
+      max-width: 250px;
+      padding: 1%;
+      border: 5px ridge black;
+      margin-left: 39%;
+    }
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .filme-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .recomendados .filme-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <!-- Cabeçalho com logotipo e navegação -->
+    <nav>
+      <img class="logosi" src="imagens/logoSI.png" alt="Logo">
+      <img class="logoplat" src="imagens/LOGOPLAT.png" alt="Logo Plat">
+      <ul>
+        <li><a href="#">Início</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="filme-selection">
+    <h2>Selecione um semestre</h2>
+    <div class="filme-grid">
+      <!-- Miniaturas das disciplinas (filmes) -->
+      <div class="filme-item" data-semester="1">
+        <img src="imagens\1semestre.png" alt="semestre 1">
+      </div>
+      <div class="filme-item" data-semester="2">
+        <img src="imagens\2semestre.png" alt="semestre 2">
+      </div>
+      <div class="filme-item" data-semester="3">
+        <img src="imagens\3semestre.png" alt="semestre 3">
+      </div>
+      <div class="filme-item" data-semester="4">
+        <img src="imagens\4semestre.png" alt="semestre 4">
+      </div>
+      <div class="filme-item" data-semester="5">
+        <img src="imagens\5semestre.png" alt="semestre 5">
+      </div>
+      <div class="filme-item" data-semester="6">
+        <img src="imagens\6semestre.png" alt="semestre 6">
+      </div>
+      <div class="filme-item" data-semester="7">
+        <img src="imagens\7semestre.png" alt="semestre 7">
+      </div>
+    </div>
+  </section>
+  <div class="recomendados">
+    <h2>Disciplinas:</h2>
+    <div class="filme-grid-recom" id="recomendados-grid">
+      <!-- Aqui serão exibidas as disciplinas recomendadas -->
+    </div>
+    <div class="descricaodisciplina">
+    </div>
+    </div>
+  
+  <script>
+    const disciplinasPorSemestre = {
+      1: ["Algoritmos", "Introdução ao Desenvolvimento Web", "TICs", "Fundamentos Lógicos Matemáticos"],
+      2: ["Técnica de Orientação a Objetos", "Sociedade da Informação", "Fundamentos de Sistema de Informação"],
+      3: ["Banco de Dados", "Gestão de Inovação", "Gestão do Conhecimento", "Desenvolvimento de Sistemas"],
+      4: ["User Experience", "Desenvolvimento Web", "Engenharia de Software"],
+      5: ["Governança de TI", "Marketing Digital", "Pesquisa Operacional", "Sistemas Operacionais"],
+      6: ["Gestão de TI 2", "Redes de Computadores", "Sistemas de Informação", "Gestão de Projetos"],
+      7: ["Data Warehouse", "Inteligência Artificial", "Sistemas de Informação"]
+    };
+
+    const descricaoDisciplinas = {
+      1: [
+        "Esta disciplina aborda os conceitos fundamentais de algoritmos e estruturas de dados.",
+        "Nesta disciplina, os alunos aprenderão os princípios básicos de desenvolvimento web.",
+        "TICs é a disciplina que abrange as tecnologias da informação e comunicação no contexto empresarial.",
+        "Esta disciplina explora os fundamentos da lógica matemática e sua aplicação na computação."
+      ],
+      2: [
+        "Esta disciplina ensina os princípios e técnicas de programação orientada a objetos.",
+        "Nesta disciplina, os alunos estudarão o impacto da tecnologia da informação na sociedade.",
+        "Esta disciplina fornece uma introdução aos conceitos e teorias fundamentais de sistemas de informação."
+      ],
+      3: [
+        "Esta disciplina aborda o projeto, implementação e gerenciamento de bancos de dados.",
+        "Nesta disciplina, os alunos explorarão a gestão da inovação no contexto da tecnologia da informação.",
+        "Gestão do Conhecimento é a disciplina que trata da criação, organização e disseminação do conhecimento nas organizações.",
+        "Esta disciplina ensina os conceitos e técnicas de desenvolvimento de sistemas de informação."
+      ],
+      4: [
+        "User Experience (UX) é a disciplina que envolve o design de experiência do usuário em produtos e serviços digitais.",
+        "Desenvolvimento Web é a disciplina que ensina as técnicas avançadas de desenvolvimento de aplicações web.",
+        "Engenharia de Software aborda os princípios e práticas de engenharia de software na construção de sistemas complexos."
+      ],
+      5: [
+        "Governança de TI trata dos princípios e práticas para o gerenciamento eficaz dos recursos de tecnologia da informação.",
+        "Marketing Digital abrange as estratégias e técnicas de marketing aplicadas ao ambiente digital.",
+        "Pesquisa Operacional é a disciplina que utiliza métodos quantitativos para a tomada de decisões em organizações.",
+        "Sistemas Operacionais é a disciplina que aborda os princípios e funcionamento dos sistemas operacionais de computadores."
+      ],
+      6: [
+        "Gestão de TI 2 é a continuação da disciplina de Gestão de TI, abordando tópicos mais avançados.",
+        "Redes de Computadores abrange os princípios e protocolos de comunicação em redes de computadores.",
+        "Sistemas de Informação é a disciplina que trata da concepção, desenvolvimento e uso de sistemas de informação.",
+        "Gestão de Projetos envolve o planejamento, execução e controle de projetos de TI em uma organização."
+      ],
+      7: [
+        "Data Warehouse é a disciplina que aborda a modelagem e implementação de sistemas de suporte à decisão.",
+        "Inteligência Artificial envolve o estudo e desenvolvimento de sistemas capazes de realizar tarefas inteligentes.",
+        "Sistemas de Informação é a disciplina que trata da concepção, desenvolvimento e uso de sistemas de informação."
+      ]
+    };
+
+    const filmeItems = document.querySelectorAll('.filme-item');
+    const recomendadosGrid = document.getElementById('recomendados-grid');
+    const descricaoDisciplina = document.querySelector('.descricaodisciplina');
+
+    // Função para atualizar as disciplinas recomendadas com base no semestre selecionado
+    function atualizarDisciplinasRecomendadas(semester) {
+      const disciplinas = disciplinasPorSemestre[semester];
+      recomendadosGrid.innerHTML = "";
+
+      disciplinas.forEach((disciplina, index) => {
+        const disciplinaItem = document.createElement('div');
+        disciplinaItem.classList.add('filme-item');
+        disciplinaItem.innerHTML = `<img class="disciplina-imagem" src="imagens/imagens disciplina/${semester}.${index + 1}.png" alt="${disciplina}" onclick="mostrarDescricao(${semester}, ${index})">`;
+        recomendadosGrid.appendChild(disciplinaItem);
+      });
+    }
+
+    // Função para exibir a descrição da disciplina selecionada
+    function mostrarDescricao(semester, index) {
+      const descricao = descricaoDisciplinas[semester][index];
+      descricaoDisciplina.innerHTML = `<h2>DESCRIÇÃO:</br>${descricao}</h2>`;
+    }
+
+    // Event listeners para os itens do semestre
+    filmeItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        const semester = item.getAttribute('data-semester');
+        atualizarDisciplinasRecomendadas(semester);
+      });
+    });
+  </script>
+</body>
+
+</html>
